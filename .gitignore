@@ -33,6 +33,17 @@
 
 #build files
 cmake-build-debug/
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
 
 #IDE files
 .idea/
+*.cbp
+TODO list
