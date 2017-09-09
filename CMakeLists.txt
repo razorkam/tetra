@@ -8,14 +8,18 @@ set (tetra_VERSION_MINOR 1)
 
 
 set(TERMINATOR_PLUGIN_DIR "~/.config/terminator/plugins")
-set(TRANSLATOR_SOURCES translator/Translator.cpp translator/google_undocumented/GoogleUdApiWrapper.cpp)
+set(TRANSLATOR_SOURCES translator/Translator.cpp )
 set(TRANSLATOR_HEADERS translator/Translator.h translator/google_undocumented/GoogleUdApiWrapper.h)
+set(HTTPHELPER_SOURCES translator/HttpHelper.cpp)
+set(HTTPHELPER_HEADERS translator/HttpHelper.h)
+set(GOOGLEWRAPPER_SOURCES translator/google_undocumented/GoogleUdApiWrapper.cpp)
+set(GOOGLEWRAPPER_HEADERS translator/google_undocumented/GoogleUdApiWrapper.h)
 
 if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})
 endif()
 
-add_library(google_wrapper SHARED ${TRANSLATOR_SOURCES})
+add_library(google_wrapper SHARED ${TRANSLATOR_SOURCES} ${HTTPHELPER_SOURCES} ${GOOGLE_WRAPPER_SOURCES})
 
 
 
