@@ -32,11 +32,10 @@ private:
     io_service &_io_service;
     ip::tcp::socket socket;
     ip::tcp::resolver resolver;
-
     streambuf request;
     streambuf response;
-
-
+    static const string default_delim;
+    static const string end_delim;
 
 };
 
