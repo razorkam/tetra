@@ -6,6 +6,7 @@
 #define TETRA_TRANSLATOR_H
 
 #include <string>
+class HttpHelper;
 
 class Translator {
     public:
@@ -16,6 +17,8 @@ class Translator {
     private:
         std::string translated_text;
         std::string source_text;
+    protected:
+        HttpHelper& http_helper;
 
 };
 

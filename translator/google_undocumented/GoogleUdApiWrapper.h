@@ -9,8 +9,12 @@
 
 
 class GoogleUdApiWrapper : public Translator {
+public:
     virtual void translate();
     GoogleUdApiWrapper();
+private:
+    static const std::string HOST;
+    static std::string RELATIVE_URL;
 };
 
 
