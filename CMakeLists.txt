@@ -4,6 +4,16 @@ project(tetra)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set (tetra_VERSION_MAJOR 0)
 set (tetra_VERSION_MINOR 1)
+find_package(Boost REQUIRED)
+if (Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+#set(Python_ADDITIONAL_VERSIONS 3.4)
+find_package(PythonLibs 3 REQUIRED)
+if (PYTHONLIBS_FOUND)
+    include_directories(${PYTHON_INCLUDE_DIRS})
+endif()
+
 #TODO: check for terminator existence
 
 
@@ -15,9 +25,8 @@ set(HTTPHELPER_HEADERS translator/HttpHelper.h)
 set(GOOGLEWRAPPER_SOURCES translator/google_undocumented/GoogleUdApiWrapper.cpp)
 set(GOOGLEWRAPPER_HEADERS translator/google_undocumented/GoogleUdApiWrapper.h)
 
-if (Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIR})
-endif()
+
+
 
 add_library(google_wrapper SHARED ${TRANSLATOR_SOURCES} ${HTTPHELPER_SOURCES} ${GOOGLEWRAPPER_SOURCES})
 

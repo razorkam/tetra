@@ -14,7 +14,7 @@ public:
     GoogleUdApiWrapper();
 private:
     static const std::string HOST;
-    static std::string RELATIVE_URL;
+    static const std::string RELATIVE_URL;
 };
 
 

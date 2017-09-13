@@ -15,11 +15,11 @@ using std::string;
 
 class HttpHelper {
 public:
-    HttpHelper & HttpHelper();
+    HttpHelper();
     ~HttpHelper();
 
-    streambuf sync_query(const string &host, const string& relative_url);
-
+    void sync_query(const string &host, const string& relative_url);
+    string http_GET_request(const string &host, const string& relative_url);
 
 private:
     io_service _io_service;

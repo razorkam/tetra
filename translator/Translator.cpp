@@ -11,15 +11,17 @@ std::string Translator::get_text() {
 }
 
 
-void Translator::set_text(std::string text) {
+void Translator::set_text(const std::string& text) {
     source_text = text;
 }
 
-Translator::Translator(): http_helper() {
-
-
+Translator::Translator() {
+    http_helper = new HttpHelper();
 }
 
+Translator::~Translator() {
+    delete http_helper;
+}
 
 BOOST_PYTHON_MODULE(tetra_translator)
 {

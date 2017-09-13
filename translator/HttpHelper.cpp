@@ -20,7 +20,7 @@ resolver(_io_service)
 
 HttpHelper::~HttpHelper() = default;
 
-streambuf HttpHelper::sync_query(const string &host, const string& relative_url) {
+void HttpHelper::sync_query(const string &host, const string& relative_url) {
     try {
         ip::tcp::resolver::query query(host, "http");
         auto ep_iter = resolver.resolve(query);
@@ -48,4 +48,11 @@ streambuf HttpHelper::sync_query(const string &host, const string& relative_url)
     }
 
     socket.close();
+}
+
+string HttpHelper::http_GET_request(const string &host, const string &relative_url) {
+    sync_query(host, relative_url);
+    auto buf = response.data();
+    string result(buffers_begin(buf), buffers_begin(buf) + response.size());
+    return result;
 }

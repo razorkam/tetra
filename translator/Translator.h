@@ -6,20 +6,20 @@
 #define TETRA_TRANSLATOR_H
 
 #include <string>
+
 class HttpHelper;
 
 class Translator {
-    public:
-        Translator();
-        std::string get_text();
-        virtual void translate() = 0;
-        void set_text(std::string text);
-    private:
+public:
+    Translator();
+    ~Translator();
+    std::string get_text();
+    virtual void translate() = 0; //pure virtual
+    void set_text(const std::string& text);
+protected:
         std::string translated_text;
         std::string source_text;
-    protected:
-        HttpHelper& http_helper;
-
+        HttpHelper* http_helper;
 };
 
 
