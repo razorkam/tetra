@@ -12,7 +12,7 @@ class HttpHelper;
 class Translator {
 public:
     Translator();
-    ~Translator();
+    virtual ~Translator();
     std::string get_text();
     virtual void translate() = 0; //pure virtual
     void set_text(const std::string& text);

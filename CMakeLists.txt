@@ -1,17 +1,22 @@
 cmake_minimum_required(VERSION 3.6)
 project(tetra)
 #set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wl,--no-undefined")
 set (tetra_VERSION_MAJOR 0)
 set (tetra_VERSION_MINOR 1)
-find_package(Boost REQUIRED)
+
+set(Boost_USE_STATIC_LIBS     OFF)
+set(Boost_USE_MULTITHREADED    ON)
+find_package(Boost REQUIRED COMPONENTS python system thread regex)
 if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
+    link_directories(${Boost_LIBRARY_DIRS})
 endif()
-#set(Python_ADDITIONAL_VERSIONS 3.4)
 find_package(PythonLibs 3 REQUIRED)
+find_package(PythonInterp 3 REQUIRED)
 if (PYTHONLIBS_FOUND)
     include_directories(${PYTHON_INCLUDE_DIRS})
+    link_directories(${PYTHON_LIBRARIES})
 endif()
 
 #TODO: check for terminator existence
@@ -29,7 +34,8 @@ set(GOOGLEWRAPPER_HEADERS translator/google_undocumented/GoogleUdApiWrapper.h)
 
 
 add_library(google_wrapper SHARED ${TRANSLATOR_SOURCES} ${HTTPHELPER_SOURCES} ${GOOGLEWRAPPER_SOURCES})
-
+set_target_properties(google_wrapper PROPERTIES PREFIX "" SUFFIX ".pyd")
+target_link_libraries(google_wrapper ${PYTHON_LIBRARIES} ${Boost_LIBRARIES} )
 
 
 

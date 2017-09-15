@@ -15,3 +15,7 @@ GoogleUdApiWrapper::GoogleUdApiWrapper() : Translator() {
 void GoogleUdApiWrapper::translate() {
     translated_text = http_helper->http_GET_request(HOST, RELATIVE_URL + source_text);
 }
+
+GoogleUdApiWrapper::~GoogleUdApiWrapper() {
+
+}
