@@ -6,7 +6,7 @@
 #include "../HttpHelper.h"
 
 const std::string GoogleUdApiWrapper::HOST = "translate.googleapis.com";
-const std::string GoogleUdApiWrapper::RELATIVE_URL = "/translate_a/single/?client=gtx&sl=auto&tl=ru&dt=t&q=";
+const std::string GoogleUdApiWrapper::RELATIVE_URL = "/translate_a/single?client=gtx&sl=auto&tl=ru&dt=t&q=";
 
 
 GoogleUdApiWrapper::GoogleUdApiWrapper() : Translator() {

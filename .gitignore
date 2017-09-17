@@ -47,3 +47,6 @@ CTestTestfile.cmake
 .idea/
 *.cbp
 TODO list
+
+#python file
+*.pyc

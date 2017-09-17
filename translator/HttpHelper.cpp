@@ -6,7 +6,7 @@
 
 const string HttpHelper::default_lb_delim = "\r\n"; //HTTP specification line break delim
 const string HttpHelper::header_end_delim = "\r\n\r\n";
-const string HttpHelper::HTTP_version = "1.1";
+const string HttpHelper::HTTP_version = "2.0";
 
 HttpHelper::HttpHelper():
 _io_service(),
@@ -26,10 +26,16 @@ void HttpHelper::sync_query(const string &host, const string& relative_url) {
         auto ep_iter = resolver.resolve(query);
         connect(socket, ep_iter);
         std::ostream rq_stream(&request);
-        rq_stream << "GET " << relative_url << "HTTP/" << HTTP_version << default_lb_delim;
+        rq_stream << "GET " << relative_url << " HTTP/" << HTTP_version << default_lb_delim;
         rq_stream << "Host: " << host << default_lb_delim;
-        rq_stream << "Accept:  */*" << default_lb_delim;
-        rq_stream << "Connection: close" << default_lb_delim;
+        rq_stream << "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0"
+                  << default_lb_delim;
+        rq_stream << "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+                  << default_lb_delim;
+        rq_stream << "Accept-Language: en-US,en;q=0.5" << default_lb_delim;
+        rq_stream << "Accept-Encoding: gzip, deflate" << default_lb_delim;
+//        rq_stream << "Upgrade-Insecure-Requests: 1" << default_lb_delim;
+        rq_stream << "Connection: keep-alive" << default_lb_delim;
         rq_stream << header_end_delim; // HTTP rq header end
         write(socket, request);
         read_until(socket, response, header_end_delim); //read HTTP response header
