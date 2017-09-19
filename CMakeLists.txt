@@ -5,6 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wl,--no-undefined")
 set (tetra_VERSION_MAJOR 0)
 set (tetra_VERSION_MINOR 1)
 
+
 find_package(Threads REQUIRED)
 
 set(Boost_USE_STATIC_LIBS     OFF)
@@ -22,8 +23,6 @@ link_directories(${PYTHON_LIBRARIES})
 
 MESSAGE(STATUS ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
-#TODO: check for terminator existence
-
 
 set(TERMINATOR_PLUGIN_DIR "~/.config/terminator/plugins")
 set(TRANSLATOR_SOURCES translator/Translator.cpp )
@@ -35,13 +34,12 @@ set(GOOGLEWRAPPER_HEADERS translator/google_undocumented/GoogleUdApiWrapper.h)
 
 
 
-
 add_library(tetra_translator SHARED ${TRANSLATOR_SOURCES} ${HTTPHELPER_SOURCES} ${GOOGLEWRAPPER_SOURCES})
-#set_target_properties(tetra_translator PROPERTIES PREFIX "" SUFFIX ".pyd")
 target_link_libraries(tetra_translator ${PYTHON_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries(google_wrapper -lpython3.5m -lboost_system -lboost_python3 ${CMAKE_THREAD_LIBS_INIT})
 
 
-
-add_custom_target(INSTALL_TETRA)
-add_custom_command(TARGET INSTALL_TETRA PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy tetra.py ${TERMINATOR_PLUGIN_DIR}/tetra.py)
+add_custom_target(install_tetra)
+add_custom_command(TARGET install_tetra PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        tetra.py ${TERMINATOR_PLUGIN_DIR}/tetra.py)
+add_custom_command(TARGET install_tetra PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+        py_translator/ ${TERMINATOR_PLUGIN_DIR}/py_translator)
